@@ -1,0 +1,33 @@
+services:
+  dynamodb-local:
+    container_name: dynamodb-try-local
+    image: amazon/dynamodb-local
+    ports:
+      - 8000:8000
+    command: -jar DynamoDBLocal.jar -dbPath /data -sharedDb
+    volumes:
+      - ./data:/data
+    networks:
+      - dynamo-try-network
+    restart: unless-stopped
+
+  dynamodb-admin:
+    container_name: dynamodb-try-admin
+    image: aaronshaf/dynamodb-admin:latest
+    environment:
+      - DYNAMO_ENDPOINT=http://dynamodb-local:8000
+    ports:
+      - 8001:8001
+    depends_on:
+      - dynamodb-local
+    networks:
+      - dynamo-try-network
+
+networks:
+  dynamo-try-network:
+    name: dynamo-try-network
+    driver: bridge
+
+#volumes:
+#  dynamodb-try-volume:
+#    name: dynamodb-try-volume

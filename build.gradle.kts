@@ -27,7 +27,7 @@ dependencies {
 	testRuntimeOnly("org.junit.platform:junit-platform-launcher")
 
 	implementation("software.amazon.awssdk:dynamodb-enhanced:2.28.16")
-
+	implementation("software.amazon.awssdk:dynamodb:2.28.16")
 }
 
 kotlin {

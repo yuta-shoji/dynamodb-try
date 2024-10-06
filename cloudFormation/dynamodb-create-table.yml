@@ -1,0 +1,23 @@
+AWSTemplateFormatVersion: '2010-09-09'
+Description: 'DynamoDB table for ogata user management'
+
+Resources:
+  DynamodbTryTable:
+    Type: AWS::DynamoDB::Table
+    Properties:
+      TableName: Customer
+      AttributeDefinitions:
+        - AttributeName: id
+          AttributeType: S
+        - AttributeName: name
+          AttributeType: S
+        - AttributeName: email
+          AttributeType: S
+        - AttributeName: registrationDate
+          AttributeType: S
+      KeySchema:
+        - AttributeName: id
+          KeyType: HASH
+      ProvisionedThroughput:
+        ReadCapacityUnits: 50
+        WriteCapacityUnits: 50

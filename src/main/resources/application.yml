@@ -1,0 +1,9 @@
+spring:
+  application:
+   name: dynamodb-try
+
+dynamodb:
+  endpoint: ${DYNAMODB_ENDPOINT}
+  table:
+    customer:
+      name: Customer
