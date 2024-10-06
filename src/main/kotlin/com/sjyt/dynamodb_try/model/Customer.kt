@@ -3,6 +3,7 @@ package com.sjyt.dynamodb_try.model
 import com.sjyt.dynamodb_try.dto.CustomerCreateDto
 import software.amazon.awssdk.enhanced.dynamodb.mapper.annotations.DynamoDbBean
 import software.amazon.awssdk.enhanced.dynamodb.mapper.annotations.DynamoDbPartitionKey
+import software.amazon.awssdk.enhanced.dynamodb.mapper.annotations.DynamoDbSecondaryPartitionKey
 import java.time.Instant
 
 @DynamoDbBean
@@ -10,6 +11,7 @@ data class Customer(
     @get:DynamoDbPartitionKey
     var id: String = "",
     var name: String = "",
+    @get:DynamoDbSecondaryPartitionKey(indexNames = ["EmailIndex"])
     var email: String = "",
     var address: String = "",
     val registrationDate: Instant = Instant.now(),

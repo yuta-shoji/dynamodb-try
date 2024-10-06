@@ -8,12 +8,14 @@ import software.amazon.awssdk.enhanced.dynamodb.DynamoDbEnhancedClient
 import software.amazon.awssdk.enhanced.dynamodb.DynamoDbTable
 import software.amazon.awssdk.enhanced.dynamodb.Key
 import software.amazon.awssdk.enhanced.dynamodb.TableSchema
+import software.amazon.awssdk.enhanced.dynamodb.model.QueryConditional
 import java.util.*
 import java.util.stream.Collectors
 
 interface CustomerRepository {
     fun save(customer: Customer): Customer
     fun findById(id: String): Optional<Customer>
+    fun findByEmail(email: String): Optional<Customer>
     fun findAll(): List<Customer>
     fun delete(id: String)
 }
@@ -39,6 +41,20 @@ class DefaultCustomerRepository(
             .partitionValue(id)
             .build()
         return Optional.ofNullable(customerTable.getItem(key))
+    }
+
+    override fun findByEmail(email: String): Optional<Customer> {
+        val queryConditional = QueryConditional
+            .keyEqualTo(
+                Key.builder()
+                    .partitionValue(email)
+                    .build()
+            )
+        return customerTable.index("EmailIndex")
+            .query(queryConditional)
+            .stream()
+            .flatMap { page -> page.items().stream() }
+            .findFirst()
     }
 
     override fun findAll(): List<Customer> {

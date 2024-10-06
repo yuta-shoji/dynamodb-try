@@ -31,6 +31,14 @@ class CustomerController(
             }
     }
 
+    @GetMapping("/email/{email}")
+    fun getCustomerByEmail(@PathVariable email: String): Customer {
+        return customerRepository.findByEmail(email)
+            .orElseThrow {
+                ResponseStatusException(HttpStatus.NOT_FOUND, "customer not found")
+            }
+    }
+
     @GetMapping
     fun getAllCustomers(): List<Customer> {
         return customerRepository.findAll()
