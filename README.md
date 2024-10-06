@@ -1,8 +1,8 @@
 # Using DynamoDB on Spring Boot
 
-1. DynamoDB Localのコンテナを起動
-
 ## 起動手順
+
+1. DynamoDB Localのコンテナを起動
 
 ```bash
 docker compose up
