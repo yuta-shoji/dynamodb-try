@@ -11,11 +11,12 @@ data class Customer(
     var id: String = "",
     var name: String = "",
     var email: String = "",
+    var address: String = "",
     val registrationDate: Instant = Instant.now(),
 ) {
     companion object {
         fun buildFrom(dto: CustomerCreateDto): Customer {
-            return Customer(dto.id, dto.name, dto.email)
+            return Customer(dto.id, dto.name, dto.email, dto.address)
         }
     }
 }

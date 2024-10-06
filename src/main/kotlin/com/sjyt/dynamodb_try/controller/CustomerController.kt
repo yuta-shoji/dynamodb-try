@@ -16,8 +16,6 @@ class CustomerController(
     @ResponseStatus(HttpStatus.CREATED)
     fun createCustomer(@RequestBody customerCreateDto: CustomerCreateDto): Customer {
         val customer = Customer.buildFrom(customerCreateDto)
-        println(customerCreateDto)
-        println(customer)
         try {
             return customerRepository.save(customer)
         } catch (error: Exception) {
